@@ -1,65 +1,55 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Avaliação de Introdução à Programação - 1DS CESF</title>
-    <link rel="stylesheet" href="style.css">
-
-    <!-- Firebase SDKs Compat (v8) -->
-    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Avaliação de Educação Digital e Programação - 8ºF CESF</title>
+  <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
-    <header>
-        <div class="logo-container">
-            <img src="logo_cesf.jpg" alt="Logo CESF" onerror="this.style.display='none'">
-            <div class="title-container">
-                <h1>Colégio Estadual Sagrada Família</h1>
-                <p>1º DS - Introdução à Programação | Prof. Marcelo</p>
-            </div>
-        </div>
-        <button class="btn-admin" id="btnAdminAccess">Área do Professor</button>
-    </header>
+  <header>
+    <div class="logo-container">
+      <img src="logo_cesf.jpg" alt="Logo CESF" onerror="this.style.display='none'">
+      <div class="title-container">
+        <h1>Colégio Estadual Sagrada Família</h1>
+        <p>Turma 8ºF | Ed. Digital, Computação e IA | Prof. Marcelo</p>
+      </div>
+    </div>
+    <button class="btn-admin" id="btnAdminAccess">Área do Professor</button>
+  </header>
 
-    <main>
-        <!-- Tela 1: Escolha do Nome -->
-        <div class="card" id="cardLogin">
-            <h2>Avaliação Online</h2>
-            <p style="margin-bottom: 20px; color: #666;">Selecione seu nome na lista para iniciar. Cada estudante só
-                pode realizar 1 tentativa.</p>
+  <main>
+    <!-- Seleção de Aluno -->
+    <div class="card" id="cardLogin">
+      <h2>Avaliação Online - Portugol Studio</h2>
+      <p style="margin-bottom: 20px; color: #666;">Selecione seu nome na lista abaixo para iniciar. Cada estudante tem direito a apenas 1 tentativa.</p>
+      
+      <div class="form-group">
+        <label for="studentSelect">Nome do Estudante:</label>
+        <select id="studentSelect">
+          <option value="">-- Selecione seu nome --</option>
+        </select>
+      </div>
+      <button class="btn-primary" id="btnStart">Iniciar Avaliação</button>
+    </div>
 
-            <div class="form-group">
-                <label for="studentSelect">Nome do Estudante:</label>
-                <select id="studentSelect">
-                    <option value="">-- Selecione seu nome --</option>
-                </select>
-            </div>
-            <button class="btn-primary" id="btnStart">Iniciar Avaliação</button>
-        </div>
+    <!-- Prova -->
+    <div class="card" id="cardQuiz" style="display: none;">
+      <h2 id="studentGreeting" style="margin-bottom: 20px; border-bottom: 2px solid var(--border-color); padding-bottom: 10px;"></h2>
+      <form id="quizForm">
+        <div id="questionsContainer"></div>
+        <button type="submit" class="btn-primary" style="margin-top: 20px;">Finalizar e Enviar Prova</button>
+      </form>
+    </div>
 
-        <!-- Tela 2: Prova -->
-        <div class="card" id="cardQuiz" style="display: none;">
-            <h2 id="studentGreeting"
-                style="margin-bottom: 20px; border-bottom: 2px solid var(--border-color); padding-bottom: 10px;"></h2>
-            <form id="quizForm">
-                <div id="questionsContainer"></div>
-                <button type="submit" class="btn-primary" style="margin-top: 20px;">Finalizar e Enviar Prova</button>
-            </form>
-        </div>
+    <!-- Sucesso -->
+    <div class="card" id="cardSuccess" style="display: none; text-align: center;">
+      <h2 style="color: #27ae60; margin-bottom: 15px;">Avaliação Concluída!</h2>
+      <p>Suas respostas foram gravadas com sucesso no sistema.</p>
+      <p style="margin-top: 10px; color: #7f8c8d;">Você já pode fechar esta página.</p>
+    </div>
+  </main>
 
-        <!-- Tela 3: Sucesso -->
-        <div class="card" id="cardSuccess" style="display: none; text-align: center;">
-            <h2 style="color: #27ae60; margin-bottom: 15px;">Avaliação Concluída!</h2>
-            <p>Suas respostas foram gravadas com sucesso no sistema.</p>
-            <p style="margin-top: 10px; color: #7f8c8d;">Você já pode fechar esta página.</p>
-        </div>
-    </main>
-
-    <!-- No final de index.html e admin.html -->
-    <script type="module" src="script.js"></script>
+  <script type="module" src="script.js"></script>
 </body>
-
 </html>

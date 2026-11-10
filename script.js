@@ -1,5 +1,5 @@
 // ==========================================
-// 1. CONFIGURAÇÃO E INICIALIZAÇÃO DO FIREBASE (v13 Modular)
+// 1. CONFIGURAÇÃO DO FIREBASE (v13 Modular)
 // ==========================================
 import { initializeApp } from "https://www.gstatic.com/firebasejs/13.2.0/firebase-app.js";
 import { getDatabase, ref, get, child, set, remove } from "https://www.gstatic.com/firebasejs/13.2.0/firebase-database.js";
@@ -18,68 +18,137 @@ const app = initializeApp(firebaseConfig);
 const database = getDatabase(app);
 
 // ==========================================
-// 2. LISTA OFICIAL DE ESTUDANTES (1DS CESF)
+// 2. LISTA OFICIAL DE ESTUDANTES (TURMA 8ºF)
 // ==========================================
 const studentList = [
-  "2) ALLAN VINICIUS", "3) ANDREY EDIVAN", "4) BERNARDO AGE", "5) BERNARDO LEITE",
-  "6) CAIO MONTAGNA", "7) CHRISTIAN GABRIEL", "8) DANIEL MOREIRA", "9) DANIEL WILCEK",
-  "10) EDUARDO ANTONIO", "11) EDUARDO CREMER", "12) ELIAS SOUZA", "13) ELOÁ PEREIRA",
-  "14) ERICK HOE", "15) FERNANDO VALENTIM", "16) GABRIEL DA SILVA", "17) GABRIEL SOEK",
-  "18) GUSTAVO GONÇALVES", "19) GUSTAVO MASSOQUETO", "20) GUSTAVO SALDANHA", "21) IAN GUSTAVO",
-  "22) JHONATHAN DA SILVA", "23) JOÃO FRANCISCO", "24) JOÃO PEDRO", "25) JOSÉ ROBERTO",
-  "26) KAUE ALEXANDRE", "27) LEONARDO FRANQUITO", "30) LUÍS HENRIQUE", "33) MIGUEL PIETRO",
-  "34) OSVALDO ZANLORENZI", "35) PEDRO ZAGESKI", "36) RILLARY VITÓRIA", "37) RODRIGO ARAÚJO",
-  "38) ROGER DE PAULA", "39) THALES JOSÉ", "40) VICTOR HUGO", "41) WESLEY HENRIQUE",
-  "42) OTÁVIO DA SILVA", "43) VINÍCIUS APARECIDO", "44) DERIK LUCCA"
+  "Agatha Rafaelly", "Alice Gabriely", "Arthur dos Santos", "Arthur Gardin",
+  "Arthur Tokarski", "Bernardo Araújo", "Bernardo Felipe", "Bernardo Hidalgo",
+  "Caetano Ramos", "Eduarda Vitória", "Emanuelly Stresser", "Emili Ferreira",
+  "Enzo Gramacho", "Enzo Lopes", "Gabriel Gonçalves", "Gabriel Santanna",
+  "Gabriel Soares", "Hellena Pereira", "Heloíse Hadara", "Isabela Sophia",
+  "Isabelle Batista", "Izabelly Cristina", "João Pedro", "Laísa Ruske",
+  "Lucca Ceccatto", "Maria Eduarda", "Maria Vitória", "Pedro Henrique",
+  "Sophia Soares", "Stephany Vitória", "Victorio Henrique", "Vinícius Bernardo"
 ];
 
 // ==========================================
-// 3. BANCO DE 30 QUESTÕES (AULAS 09, 10 E 11)
+// 3. BANCO DE 30 QUESTÕES - PORTUGOL STUDIO (8ºF)
 // ==========================================
 const questionBank = [
-  { id: 1, text: "Qual será a saída do comando 1 == '1' no console do JavaScript?", options: ["true", "false", "undefined", "TypeError"], answer: "true" },
-  { id: 2, text: "Qual operador é utilizado para verificar a desigualdade entre dois valores no JS?", options: ["!=", "==", "=>", "="], answer: "!=" },
-  { id: 3, text: "Qual o retorno da expressão (5 != 5) no console?", options: ["false", "true", "null", "NaN"], answer: "false" },
-  { id: 4, text: "Qual a principal diferença entre os operadores '=' e '==' em JavaScript?", options: ["'=' atribui valor e '==' realiza comparação de igualdade.", "'=' compara e '==' atribui.", "Ambos realizam exatamente a mesma função.", "'==' só funciona com números."], answer: "'=' atribui valor e '==' realiza comparação de igualdade." },
-  { id: 5, text: "Qual será a saída de 'b' > 'c' no console do navegador?", options: ["false", "true", "error", "undefined"], answer: "false" },
-  { id: 6, text: "O que é retornado ao testar 'e' > 'c' em JavaScript?", options: ["true", "false", "null", "NaN"], answer: "true" },
-  { id: 7, text: "Qual o resultado de 18 > 6 no JS?", options: ["true", "false", "18", "6"], answer: "true" },
-  { id: 8, text: "Para abrir as ferramentas do desenvolvedor na aba Console no Chrome, qual o atalho padrão?", options: ["Ctrl + Shift + J", "Ctrl + Alt + Del", "Ctrl + P", "Alt + F4"], answer: "Ctrl + Shift + J" },
-  { id: 9, text: "O operador '>=' significa:", options: ["Maior ou igual", "Menor ou igual", "Diferente", "Estritamente igual"], answer: "Maior ou igual" },
-  { id: 10, text: "Qual das opções representa o operador de menor ou igual?", options: ["<=", "=>", "=<", "!="], answer: "<=" },
-  { id: 11, code: "let idade = 21;\nvar resposta = (idade = 21);", text: "Na instrução var idade = 21, o operador '=' está fazendo:", options: ["Uma atribuição de valor à variável", "Uma comparação de igualdade", "Uma verificação condicional", "Uma conversão para texto"], answer: "Uma atribuição de valor à variável" },
-  { id: 12, code: "var x = 10;\nif (x > 5) {\n  alert('Maior');\n} else {\n  alert('Menor');\n}", text: "Qual mensagem será exibida na tela pelo código acima?", options: ["Maior", "Menor", "Nenhuma", "Erro de sintaxe"], answer: "Maior" },
-  { id: 13, text: "A estrutura de controle 'if' só executa o bloco dentro das chaves se a condição for:", options: ["true", "false", "0", "null"], answer: "true" },
-  { id: 14, text: "Qual função do JS é usada para converter uma entrada de texto em número inteiro?", options: ["parseInt()", "toString()", "alert()", "console.log()"], answer: "parseInt()" },
-  { id: 15, code: "var senha = '2112';\nvar tentativa = '2112';\nif (tentativa == senha) {\n  // Bloco A\n} else {\n  // Bloco B\n}", text: "Qual bloco será executado?", options: ["Bloco A", "Bloco B", "Ambos os blocos", "Nenhum bloco"], answer: "Bloco A" },
-  { id: 16, text: "O comando 'else' serve para:", options: ["Executar um bloco alternativo quando o 'if' for falso", "Repetir o código 10 vezes", "Criar uma nova variável", "Encerrar o navegador"], answer: "Executar um bloco alternativo quando o 'if' for falso" },
-  { id: 17, code: "var idade = 15;\nif (idade >= 18) {\n  console.log('Liberado');\n}", text: "O que será impresso no console?", options: ["Nada será impresso", "Liberado", "false", "Erro"], answer: "Nada será impresso" },
-  { id: 18, text: "Para capturar o valor digitado pelo usuário em um input com id 'idade', usamos:", options: ["document.getElementById('idade').value", "document.value('idade')", "getElementById.value('idade')", "input.idade.getValue()"], answer: "document.getElementById('idade').value" },
-  { id: 19, text: "Em um teste condicional, o que acontece quando o teste 'if' resulta em false e NÃO há um 'else'?", options: ["O programa pula o bloco e continua a execução", "O programa trava", "Abre uma janela de alerta de erro", "O código entra em loop"], answer: "O programa pula o bloco e continua a execução" },
-  { id: 20, code: "if (10 == '10') { console.log('Sim'); }", text: "Qual a saída deste código?", options: ["Sim", "Não imprime nada", "Erro de tipo", "false"], answer: "Sim" },
-  { id: 21, text: "O que caracteriza o aninhamento de estruturas 'if / else'?", options: ["Colocar uma estrutura 'if/else' dentro de outra", "Criar múltiplos arquivos HTML", "Usar apenas a palavra 'else' no script", "Declarar variáveis globais"], answer: "Colocar uma estrutura 'if/else' dentro de outra" },
-  { id: 22, code: "let idade = 70;\nif (idade >= 18) {\n  if (idade >= 65) {\n    console.log('A');\n  } else {\n    console.log('B');\n  }\n}", text: "O que será impresso no console?", options: ["A", "B", "A e B", "Nada"], answer: "A" },
-  { id: 23, code: "let idade = 20;\nif (idade >= 18) {\n  if (idade >= 65) {\n    console.log('A');\n  } else {\n    console.log('B');\n  }\n}", text: "Com idade = 20, qual a saída impressa?", options: ["B", "A", "Menor de idade", "Erro"], answer: "B" },
-  { id: 24, code: "let idade = 14;\nif (idade < 16) {\n  alert('Não vota');\n} else {\n  if (idade < 18) {\n    alert('Facultativo');\n  }\n}", text: "Para idade = 14, qual o alerta exibido?", options: ["Não vota", "Facultativo", "Obrigatório", "Nenhum"], answer: "Não vota" },
-  { id: 25, code: "let idade = 17;\nif (idade < 16) {\n  alert('Não vota');\n} else {\n  if (idade < 18) {\n    alert('Facultativo');\n  }\n}", text: "Para idade = 17, qual o alerta exibido?", options: ["Facultativo", "Não vota", "Obrigatório", "Erro"], answer: "Facultativo" },
-  { id: 26, text: "Para verificar se um número é positivo, negativo ou nulo, é necessário utilizar:", options: ["Estruturas condicionais aninhadas (ou encadeadas)", "Apenas um operador de atribuição", "Uma tag <head> no HTML", "O atalho Ctrl+Shift+J"], answer: "Estruturas condicionais aninhadas (ou encadeadas)" },
-  { id: 27, code: "let num = 0;\nif (num > 0) {\n  console.log('Positivo');\n} else {\n  if (num < 0) {\n    console.log('Negativo');\n  } else {\n    console.log('Nulo');\n  }\n}", text: "Com num = 0, qual será o resultado?", options: ["Nulo", "Positivo", "Negativo", "Zero"], answer: "Nulo" },
-  { id: 28, text: "Boa prática recomendada para manter o código com 'if/else' aninhados legível:", options: ["Manter a indentação (alinhamento vertical) organizada", "Escrever todo o JS na mesma linha", "Não usar chaves {}", "Usar nomes de variáveis com apenas uma letra"], answer: "Manter a indentação (alinhamento vertical) organizada" },
-  { id: 29, code: "let n1 = 10, n2 = 10;\nif (n1 > n2) {\n  res = 'Maior';\n} else if (n1 < n2) {\n  res = 'Menor';\n} else {\n  res = 'Igual';\n}", text: "Qual o valor da variável 'res'?", options: ["Igual", "Maior", "Menor", "undefined"], answer: "Igual" },
-  { id: 30, text: "Se um teste interno em um aninhamento falhar, o programa executará o bloco:", options: ["'else' associado àquele 'if' interno específico", "Todo o arquivo HTML novamente", "O primeiro 'if' do script", "Nenhum código futuro"], answer: "'else' associado àquele 'if' interno específico" }
+  // CONCEITOS BÁSICOS & FERRAMENTAS
+  { id: 1, text: "O Portugol é uma linguagem de programação criada com o objetivo de:", options: ["Ensinar a lógica de programação em português", "Desenvolver jogos em 3D profissionais", "Substituir o HTML nos sites", "Criar aplicativos para celulares Android"], answer: "Ensinar a lógica de programação em português" },
+  { id: 2, text: "Qual é a função do Portugol Studio no nosso computador?", options: ["É a ferramenta onde digitamos, executamos e vemos o programa rodar", "É um navegador de internet como o Chrome", "É um editor de fotos e imagens", "É um antivírus para proteção de dados"], answer: "É a ferramenta onde digitamos, executamos e vemos o programa rodar" },
+  { id: 3, text: "No Portugol Studio, qual símbolo ou caractere representa o botão de executar o código?", options: ["Um ícone de play (▶️)", "Um símbolo de mais (+)", "Uma chave ({})", "Uma estrela (*)"], answer: "Um ícone de play (▶️)" },
+  
+  // VARIÁVEIS E TIPOS DE DADOS
+  { id: 4, text: "Na metáfora do armário e gavetas, o que representa uma 'variável' na memória do computador?", options: ["Uma gaveta com etiqueta que guarda uma informação específica", "O cabo de energia da máquina", "A tela do monitor onde vemos as frases", "O botão de desligar o computador"], answer: "Uma gaveta com etiqueta que guarda uma informação específica" },
+  { id: 5, text: "Qual tipo de dado deve ser utilizado para guardar o nome de uma pessoa ou uma frase?", options: ["cadeia", "inteiro", "real", "logico"], answer: "cadeia" },
+  { id: 6, text: "Valores armazenados em variáveis do tipo 'cadeia' devem ficar obrigatoriamente entre:", options: ["Aspas duplas ( \" \" )", "Parênteses ( ( ) )", "Colchetes ( [ ] )", "Barra e asterisco ( /* */ )"], answer: "Aspas duplas ( \" \" )" },
+  { id: 7, text: "Se precisamos guardar a idade de um aluno em anos (ex: 13 ou 14), qual tipo de variável é mais adequado?", options: ["inteiro", "real", "cadeia", "caracter"], answer: "inteiro" },
+  { id: 8, text: "Para armazenar o preço de um lanche na cantina (ex: 15.50), qual tipo de variável devemos declarar?", options: ["real", "inteiro", "cadeia", "vazio"], answer: "real" },
+  { id: 9, text: "Qual das opções a seguir é um exemplo correto de valor do tipo 'real'?", options: ["1.75", "13", "\"Guerreiro\"", "falso"], answer: "1.75" },
+  { id: 10, text: "Ao nomear uma variável no Portugol Studio, qual das regras abaixo deve ser respeitada para evitar erros?", options: ["Não usar espaços nem acentos no nome da variável", "Começar o nome sempre com um número", "Usar aspas no nome da variável", "Escrever tudo em letras maiúsculas obrigatoriamente"], answer: "Não usar espaços nem acentos no nome da variável" },
+
+  // COMANDOS DE ENTRADA E SAÍDA (escreva e leia)
+  { id: 11, text: "Qual é a função do comando 'escreva()' em Portugol?", options: ["Exibir textos ou resultados na tela para o usuário", "Aguardar o usuário digitar algo no teclado", "Apagar os dados da memória", "Fechar a janela do programa"], answer: "Exibir textos ou resultados na tela para o usuário" },
+  { id: 12, text: "O comando 'leia()' é utilizado para:", options: ["Aguardar e guardar o dado digitado pelo usuário em uma variável", "Imprimir um relatório no papel", "Tocar um som no alto-falante", "Mudar a cor de fundo do programa"], answer: "Aguardar e guardar o dado digitado pelo usuário em uma variável" },
+  { id: 13, text: "Para pular uma linha na saída de texto do comando 'escreva()', usamos o caractere especial:", options: ["\\n", "\\p", "/pula", "==pula=="], answer: "\\n" },
+  { id: 14, text: "No comando 'escreva()', o que usamos para juntar (concatenar) um texto fixo com o valor de uma variável?", options: ["Vírgula ( , )", "Ponto final ( . )", "Símbolo de e comercial ( & )", "Traço ( - )"], answer: "Vírgula ( , )" },
+  { id: 15, text: "Dentro do comando escreva(\"Olá\", nome), a palavra entre aspas (\"Olá\") representa:", options: ["Um texto fixo que será exibido exatamente como foi escrito", "O nome de uma variável", "O nome do comando de entrada", "Um número inteiro"], answer: "Um texto fixo que será exibido exatamente como foi escrito" },
+
+  // ANÁLISE DE CÓDIGO - ATIVIDADE 1 (Gerador de Nickname)
+  { id: 16, code: "cadeia cor\ncadeia animal\ncor = \"Azul\"\nanimal = \"Cobra\"\nescreva(cor, animal, \"123\")", text: "Qual será a saída gerada pelo trecho de código acima?", options: ["AzulCobra123", "cor animal 123", "Azul Cobra 123", "Erro de compilação"], answer: "AzulCobra123" },
+  { id: 17, text: "No programa 'Gerador de Nickname Gamer', as variáveis 'cor' e 'animal' foram declaradas com qual tipo?", options: ["cadeia", "inteiro", "real", "logico"], answer: "cadeia" },
+
+  // ANÁLISE DE CÓDIGO - ATIVIDADE 2 (Ficha de RPG)
+  { id: 18, code: "cadeia nomeHeroi = \"Mage\"\ninteiro nivel = 10\nescreva(nomeHeroi, \" - Lvl \", nivel)", text: "Qual a saída exata impressa pelo comando escreva acima?", options: ["Mage - Lvl 10", "nomeHeroi - Lvl nivel", "Mage Lvl 10", "10 - Lvl Mage"], answer: "Mage - Lvl 10" },
+  { id: 19, text: "No cadastro de um personagem de RPG, se declararmos a variável 'nivel' como 'cadeia' em vez de 'inteiro':", options: ["Ela guardará o número como texto, impedindo contas matemáticas futuras", "O programa pegará fogo", "O nível passará a ter casas decimais automaticamente", "O Portugol Studio converterá sozinho para número real"], answer: "Ela guardará o número como texto, impedindo contas matemáticas futuras" },
+
+  // ANÁLISE DE CÓDIGO - ATIVIDADE 3 (Calculadora de Dias de Vida)
+  { id: 20, code: "inteiro idadeAnos = 10\ninteiro diasAproximados\ndiasAproximados = idadeAnos * 365\nescreva(diasAproximados)", text: "Qual valor será exibido na tela ao executar o código?", options: ["3650", "365", "10", "36510"], answer: "3650" },
+  { id: 21, text: "Qual operador matemático é utilizado no Portugol para realizar a multiplicação da idade por 365?", options: ["Asterisco ( * )", "Letra X ( x )", "Barra ( / )", "Sinal de mais ( + )"], answer: "Asterisco ( * )" },
+
+  // ANÁLISE DE CÓDIGO - ATIVIDADE 4 (Comandante de Lanchonete)
+  { id: 22, code: "cadeia lanche = \"Pipoca\"\nreal preco = 12.50\nescreva(\"Pedido: \", lanche, \" R$ \", preco)", text: "Qual a saída deste código?", options: ["Pedido: Pipoca R$ 12.50", "Pedido: lanche R$ preco", "Pipoca 12.50", "Erro de tipo de dado"], answer: "Pedido: Pipoca R$ 12.50" },
+  { id: 23, text: "Por que a variável 'preco' na atividade da Lanchonete deve ser do tipo 'real'?", options: ["Porque valores em dinheiro possuem centavos (casas decimais)", "Porque lanches só aceitam texto", "Porque o tipo 'inteiro' não aceita números", "Para o Portugol conseguir aplicar desconto sozinho"], answer: "Porque valores em dinheiro possuem centavos (casas decimais)" },
+
+  // ANÁLISE DE CÓDIGO - ATIVIDADE 5 (Histórias Malucas)
+  { id: 24, code: "cadeia amigo = \"Pedro\"\ncadeia lugar = \"Pátio\"\nescreva(amigo, \" está no \", lugar)", text: "Qual será a mensagem exibida?", options: ["Pedro está no Pátio", "amigo está no lugar", "Pedroestá noPátio", "Erro de sintaxe"], answer: "Pedro está no Pátio" },
+  { id: 25, text: "Na atividade 'Gerador de Histórias Malucas', foram utilizadas 3 variáveis de qual tipo?", options: ["Todas do tipo cadeia", "Duas do tipo inteiro e uma real", "Todas do tipo real", "Duas do tipo cadeia e uma inteiro"], answer: "Todas do tipo cadeia" },
+
+  // SINTAXE E ESTRUTURA DO PORTUGOL
+  { id: 26, text: "Todo programa em Portugol Studio deve ter sua lógica principal escrita dentro da função:", options: ["inicio()", "principal()", "escreva()", "executar()"], answer: "inicio()" },
+  { id: 27, text: "O bloco de código da função inicio() no Portugol fica delimitado por:", options: ["Chaves ( { } )", "Parênteses ( ( ) )", "Colchetes ( [ ] )", "Aspas ( \" \" )"], answer: "Chaves ( { } )" },
+  { id: 28, text: "O que acontece se tentarmos ler um texto digitado pelo usuário dentro de uma variável do tipo 'inteiro'?", options: ["Ocorrerá um erro de conversão/tipo de dado no programa", "O programa salva o texto normalmente", "A variável apaga o texto", "O Portugol transforma o texto em zero automaticamente"], answer: "Ocorrerá um erro de conversão/tipo de dado no programa" },
+  { id: 29, text: "Para inserir comentários no código que não são executados pelo computador, usamos:", options: ["Duas barras ( // )", "Dois pontos ( : )", "Sinal de igual ( == )", "Jogo da velha ( # )"], answer: "Duas barras ( // )" },
+  { id: 30, text: "Qual é o resultado da expressão 5 + 5 * 2 no Portugol?", options: ["15", "20", "25", "10"], answer: "15" }
 ];
 
-// Variáveis Globais
+// Variáveis Globais de Controle
 let selectedStudent = "";
 let selectedQuestions = [];
 let evaluationsData = [];
+let focusLossCount = 0; // Contador de trocas de aba do aluno
 
 // ==========================================
-// 4. INICIALIZAÇÃO
+// 4. MÓDULO DE SEGURANÇA E ANTI-COLA
+// ==========================================
+function applySecurityMeasures() {
+  // 1. Bloquear Botão Direito do Mouse
+  document.addEventListener("contextmenu", (e) => {
+    e.preventDefault();
+    alert("O clique com o botão direito está desativado durante a avaliação.");
+  });
+
+  // 2. Bloquear Atalhos de Teclado (Ctrl+C, Ctrl+U, Ctrl+P, F12, PrintScreen)
+  document.addEventListener("keydown", (e) => {
+    // Tecla PrintScreen
+    if (e.key === "PrintScreen" || e.keyCode === 44) {
+      e.preventDefault();
+      alert("Capturas de tela não são permitidas nesta avaliação.");
+      return false;
+    }
+
+    // Atalhos do Navegador (Copiar, Ver Código Fonte, Imprimir, DevTools)
+    if (
+      (e.ctrlKey && (e.key === "c" || e.key === "C" || e.key === "u" || e.key === "U" || e.key === "p" || e.key === "P")) ||
+      e.key === "F12"
+    ) {
+      e.preventDefault();
+      alert("Este atalho foi desativado por questões de segurança da avaliação.");
+      return false;
+    }
+  });
+
+  // 3. Monitorar Troca de Aba ou Minimizar Navegador
+  document.addEventListener("visibilitychange", () => {
+    const cardQuiz = document.getElementById("cardQuiz");
+
+    // Só monitora se o aluno estiver ativamente fazendo a prova
+    if (cardQuiz && cardQuiz.style.display !== "none") {
+      if (document.hidden) {
+        focusLossCount++;
+        cardQuiz.classList.add("blur-protection");
+      } else {
+        cardQuiz.classList.remove("blur-protection");
+        alert(`ATENÇÃO ${selectedStudent}!\nVocê saiu da aba da prova ${focusLossCount} vez(es).\nLembre-se de que a troca de abas é registrada.`);
+      }
+    }
+  });
+
+  // 4. Bloquear Copiar, Cortar e Colar
+  document.addEventListener("copy", (e) => e.preventDefault());
+  document.addEventListener("cut", (e) => e.preventDefault());
+  document.addEventListener("paste", (e) => e.preventDefault());
+}
+
+// ==========================================
+// 5. INICIALIZAÇÃO DEPENDENDO DA PÁGINA
 // ==========================================
 document.addEventListener("DOMContentLoaded", () => {
   if (document.getElementById("studentSelect")) {
     initStudentPage();
+    applySecurityMeasures(); // Ativa a segurança na página do aluno
   }
 
   if (document.getElementById("adminTable")) {
@@ -87,7 +156,9 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 });
 
-// ------------ LÓGICA DO ALUNO ------------
+// ==========================================
+// 6. LÓGICA DA PÁGINA DO ESTUDANTE (index.html)
+// ==========================================
 function initStudentPage() {
   const select = document.getElementById("studentSelect");
   
@@ -124,11 +195,12 @@ async function startQuiz() {
 
   try {
     const dbRef = ref(database);
-    const snapshot = await get(child(dbRef, `evaluations/${studentKey}`));
+    const snapshot = await get(child(dbRef, `evaluations_8f/${studentKey}`));
 
     if (snapshot.exists()) {
       alert("Atenção: Você já realizou esta avaliação anteriormente!");
     } else {
+      focusLossCount = 0; // Reseta o contador ao iniciar
       selectedQuestions = [...questionBank].sort(() => 0.5 - Math.random()).slice(0, 15);
       renderQuestions();
 
@@ -192,12 +264,13 @@ async function submitQuiz(e) {
     score: finalScore,
     correctAnswers: correctCount,
     totalQuestions: 15,
+    tabSwitches: focusLossCount, // Grava quantas vezes o aluno trocou de aba
     timestamp: now.toISOString(),
     formattedDate: now.toLocaleDateString("pt-BR") + " " + now.toLocaleTimeString("pt-BR")
   };
 
   try {
-    await set(ref(database, `evaluations/${studentKey}`), record);
+    await set(ref(database, `evaluations_8f/${studentKey}`), record);
     document.getElementById("cardQuiz").style.display = "none";
     document.getElementById("cardSuccess").style.display = "block";
   } catch (err) {
@@ -206,7 +279,9 @@ async function submitQuiz(e) {
   }
 }
 
-// ------------ LÓGICA DO PAINEL ADMIN ------------
+// ==========================================
+// 7. LÓGICA DO PAINEL DO PROFESSOR (admin.html)
+// ==========================================
 function initAdminPage() {
   document.getElementById("btnExit").addEventListener("click", () => {
     window.location.href = "index.html";
@@ -225,14 +300,14 @@ function initAdminPage() {
 async function loadAdminData() {
   try {
     const dbRef = ref(database);
-    const snapshot = await get(child(dbRef, "evaluations"));
+    const snapshot = await get(child(dbRef, "evaluations_8f"));
 
     const tbody = document.querySelector("#adminTable tbody");
     tbody.innerHTML = "";
 
     if (!snapshot.exists()) {
       evaluationsData = [];
-      document.getElementById("mTotal").textContent = "0 / 39";
+      document.getElementById("mTotal").textContent = "0 / 32";
       document.getElementById("mAverage").textContent = "0.0";
       document.getElementById("mMax").textContent = "0.0";
       document.getElementById("mMin").textContent = "0.0";
@@ -248,7 +323,7 @@ async function loadAdminData() {
     const max = Math.max(...scores).toFixed(1);
     const min = Math.min(...scores).toFixed(1);
 
-    document.getElementById("mTotal").textContent = `${total} / 39`;
+    document.getElementById("mTotal").textContent = `${total} / 32`;
     document.getElementById("mAverage").textContent = avg;
     document.getElementById("mMax").textContent = max;
     document.getElementById("mMin").textContent = min;
@@ -259,7 +334,7 @@ async function loadAdminData() {
         <td><strong>${item.studentName}</strong></td>
         <td>${item.score.toFixed(1)}</td>
         <td>${item.correctAnswers} / 15</td>
-        <td>${item.formattedDate}</td>
+        <td>${item.formattedDate} ${item.tabSwitches ? `<br><small style="color: #c0392b;">(Trocou de aba ${item.tabSwitches}x)</small>` : ''}</td>
       `;
       tbody.appendChild(tr);
     });
@@ -275,28 +350,28 @@ function exportToCSV() {
   }
 
   let csvContent = "\uFEFF";
-  csvContent += "Estudante;Nota;Acertos;Data e Horario\n";
+  csvContent += "Estudante;Nota;Acertos;Saidas de Aba;Data e Horario\n";
 
   evaluationsData.forEach(item => {
-    csvContent += `"${item.studentName}";"${item.score.toFixed(1)}";"${item.correctAnswers}/15";"${item.formattedDate}"\n`;
+    csvContent += `"${item.studentName}";"${item.score.toFixed(1)}";"${item.correctAnswers}/15";"${item.tabSwitches || 0}";"${item.formattedDate}"\n`;
   });
 
   const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
   const url = URL.createObjectURL(blob);
   const link = document.createElement("a");
   link.setAttribute("href", url);
-  link.setAttribute("download", `relatorio_prova_1DS_CESF.csv`);
+  link.setAttribute("download", `relatorio_prova_8F_CESF.csv`);
   document.body.appendChild(link);
   link.click();
   document.body.removeChild(link);
 }
 
 async function resetDatabase() {
-  const confirmPass = prompt("ATENÇÃO: Isso apagará TODOS os registros da turma!\nDigite a senha do admin para confirmar:");
+  const confirmPass = prompt("ATENÇÃO: Isso apagará TODOS os registros da turma 8F!\nDigite a senha do admin para confirmar:");
   
   if (confirmPass === "masaju1820") {
     try {
-      await remove(ref(database, "evaluations"));
+      await remove(ref(database, "evaluations_8f"));
       alert("Todos os dados foram removidos com sucesso!");
       loadAdminData();
     } catch (err) {

@@ -1,84 +1,71 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Painel do Professor - 1DS CESF</title>
-    <link rel="stylesheet" href="style.css">
-
-    <!-- Firebase SDKs Compat (v8) -->
-    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Painel do Professor - 8ºF CESF</title>
+  <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
-    <header>
-        <div class="logo-container">
-            <img src="logo_cesf.jpg" alt="Logo CESF" onerror="this.style.display='none'">
-            <div class="title-container">
-                <h1>Painel do Professor - Relatório Geral</h1>
-                <p>1º DS | Introdução à Programação | Prof. Marcelo</p>
-            </div>
+  <header>
+    <div class="logo-container">
+      <img src="logo_cesf.jpg" alt="Logo CESF" onerror="this.style.display='none'">
+      <div class="title-container">
+        <h1>Painel do Professor - Relatório Geral (8ºF)</h1>
+        <p>Ed. Digital, Computação e IA | Prof. Marcelo</p>
+      </div>
+    </div>
+    <button class="btn-admin" id="btnExit">Sair</button>
+  </header>
+
+  <main>
+    <!-- Métricas da Turma 8F -->
+    <div class="metrics-grid">
+      <div class="metric-card">
+        <h3>Total de Envios</h3>
+        <p id="mTotal">0 / 32</p>
+      </div>
+      <div class="metric-card">
+        <h3>Média da Turma</h3>
+        <p id="mAverage">0.0</p>
+      </div>
+      <div class="metric-card">
+        <h3>Maior Nota</h3>
+        <p id="mMax">0.0</p>
+      </div>
+      <div class="metric-card">
+        <h3>Menor Nota</h3>
+        <p id="mMin">0.0</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 10px;">
+        <h2>Resultados dos Alunos (8ºF)</h2>
+        <div style="display: flex; gap: 10px;">
+          <button class="btn-primary" id="btnExportCSV" style="width: auto;">Baixar Relatório (CSV)</button>
+          <button class="btn-primary" id="btnResetData" style="width: auto; background-color: #c0392b;">Limpar/Resetar Dados</button>
         </div>
-        <button class="btn-admin" id="btnExit">Sair</button>
-    </header>
+      </div>
 
-    <main>
-        <!-- Métricas -->
-        <div class="metrics-grid">
-            <div class="metric-card">
-                <h3>Total de Envios</h3>
-                <p id="mTotal">0 / 39</p>
-            </div>
-            <div class="metric-card">
-                <h3>Média da Turma</h3>
-                <p id="mAverage">0.0</p>
-            </div>
-            <div class="metric-card">
-                <h3>Maior Nota</h3>
-                <p id="mMax">0.0</p>
-            </div>
-            <div class="metric-card">
-                <h3>Menor Nota</h3>
-                <p id="mMin">0.0</p>
-            </div>
-        </div>
+      <div style="overflow-x: auto;">
+        <table id="adminTable">
+          <thead>
+            <tr>
+              <th>Estudante</th>
+              <th>Nota (máx 3,0)</th>
+              <th>Acertos</th>
+              <th>Data e Horário</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td colspan="4">Carregando dados do banco...</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </main>
 
-        <!-- Localize este bloco dentro do admin.html e substitua pela versão abaixo: -->
-        <div class="card">
-            <div
-                style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 10px;">
-                <h2>Resultados dos Alunos</h2>
-                <div style="display: flex; gap: 10px;">
-                    <button class="btn-primary" id="btnExportCSV" style="width: auto;">Baixar Relatório (CSV)</button>
-                    <button class="btn-primary" id="btnResetData"
-                        style="width: auto; background-color: #c0392b;">Limpar/Resetar Dados</button>
-                </div>
-            </div>
-
-            <div style="overflow-x: auto;">
-                <table id="adminTable">
-                    <thead>
-                        <tr>
-                            <th>Estudante</th>
-                            <th>Nota (máx 3,0)</th>
-                            <th>Acertos</th>
-                            <th>Data e Horário</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td colspan="4">Carregando dados do banco...</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </main>
-
-    <!-- No final de index.html e admin.html -->
-    <script type="module" src="script.js"></script>
+  <script type="module" src="script.js"></script>
 </body>
-
 </html>

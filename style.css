@@ -1,5 +1,5 @@
 :root {
-  --primary-color: #8b0000; /* Vinho / Bordô inspirado na logo CESF */
+  --primary-color: #8b0000; /* Vinho / Bordô (Logo CESF) */
   --bg-color: #f4f6f8;
   --card-bg: #ffffff;
   --text-color: #2c3e50;
@@ -210,17 +210,35 @@ th {
     gap: 12px;
     text-align: center;
   }
-  
   .logo-container {
     flex-direction: column;
     gap: 8px;
   }
-
   .card {
     padding: 18px;
   }
-
   .btn-primary {
-    padding: 14px 18px; /* Área de clique maior para o polegar */
+    padding: 14px 18px;
   }
+}
+
+/* Impedir seleção de texto em toda a página */
+body {
+  -webkit-user-select: none; /* Safari / Chrome */
+  -moz-user-select: none;    /* Firefox */
+  -ms-user-select: none;     /* IE / Edge */
+  user-select: none;         /* Padrão */
+}
+
+/* Ocultar conteúdo se o aluno tentar Imprimir (Ctrl + P) ou salvar PDF */
+@media print {
+  body {
+    display: none !important;
+  }
+}
+
+/* Blur visual de proteção quando a aba perde o foco */
+.blur-protection {
+  filter: blur(12px);
+  pointer-events: none;
 }
